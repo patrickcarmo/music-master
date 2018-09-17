@@ -5,6 +5,7 @@ import './App.css';
 
 import Authorization from './authorization'
 import Profile from './Profile';
+import Gallery from './Gallery';
 
 class App extends Component{
 
@@ -17,11 +18,9 @@ class App extends Component{
             artist: null,
             tracks: []
         };
-        console.log(this.state);
     }
 
     search() {
-        console.log('this.state', this.state);
         const BASE_URL = 'https://api.spotify.com/v1/search?';
         const ALBUM_URL = 'https://api.spotify.com/v1/artists/';
         const accessToken = Authorization.SPOTIFY;
@@ -40,15 +39,21 @@ class App extends Component{
         fetch(FETCH_URL, myOptions)
             .then(response => response.json())
             .then(json => {
+                
+                if (json['error']) {
+                    const { status, message } = json['error'];
+                    alert(`Status: ${status} \nMessage: ${message} `);
+                    return;
+                }
+
                 if (json.artists.items.length > 0){
                     const artist = json.artists.items[0];
                     this.setState({ artist });
 
-                    FETCH_URL = `${ALBUM_URL}${artist.id}/top-tracks?country=BR&`
+                    FETCH_URL = `${ALBUM_URL}${artist.id}/top-tracks?country=US&`
                     fetch(FETCH_URL, myOptions)
                         .then(response => response.json())
                         .then(json => {
-                            console.log(json);
                             const { tracks } = json;
                             this.setState({ tracks });
                         })
@@ -87,7 +92,9 @@ class App extends Component{
                             <Profile
                                 artist={this.state.artist}
                             />
-                            <div className="Gallery"></div>
+                            <Gallery
+                                tracks={this.state.tracks}
+                            />
                         </div>
                     :
                         <div></div>

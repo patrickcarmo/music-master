@@ -13,8 +13,6 @@ class Profile extends Component {
         };
         artist = this.props.artist !== null ? this.props.artist : artist;
 
-        console.log('artist', artist);
-
         return (
 
             <div className="profile">
