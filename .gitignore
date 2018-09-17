@@ -21,4 +21,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # private
-/src/authorizarion.js
+/src/authorization.js

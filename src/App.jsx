@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { FormGroup, FormControl, InputGroup, Glyphicon } from 'react-bootstrap';
 
 import './App.css';
-import Authorization from './authorizarion'
+
+import Authorization from './authorization'
+import Profile from './Profile';
+
 class App extends Component{
 
     state = [];
@@ -10,7 +13,8 @@ class App extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            query: ''
+            query: '',
+            artist: null
         };
         console.log(this.state);
     }
@@ -34,7 +38,27 @@ class App extends Component{
 
         fetch(FETCH_URL, myOptions)
             .then(response => response.json())
-            .then(json => console.log())
+            .then(json => {
+                const artist = json.artists.items[0];
+                this.setState({ artist });
+            })
+
+        /*
+        fetch(FETCH_URL, myOptions)
+            .then(response => response.json())
+            .then(json => {
+                const artist = json.artists.items[0];
+                this.setState({ artist });
+
+                FETCH_URL = `${ALBUM_URL}${artist.id}/top-tracks?country=US&`
+                fetch(FETCH_URL, myOptions)
+                    .then(response => response.json())
+                    .then(json => {
+                        const { tracks } = json;
+                        this.setState({ tracks });
+                    })
+            })
+        */
     }
 
     searchKeyPress(event) {
@@ -44,7 +68,7 @@ class App extends Component{
     }
 
     render() {
-        return(
+        return (
             <div className="App">
                 <div className="App-title">Music Master</div>
                 <FormGroup>
@@ -61,12 +85,14 @@ class App extends Component{
                         </InputGroup.Addon>
                     </InputGroup>
                 </FormGroup>
+
+                <Profile
+                    artist={this.state.artist}
+                />
+
                 <div className="Profile">
-                    <div>Artist Picture</div>
-                    <div>Artist Name</div>
                 </div>
                 <div className="Gallery">
-                    Gallery
                 </div>
             </div>
         )
