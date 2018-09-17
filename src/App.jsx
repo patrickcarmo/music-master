@@ -39,8 +39,10 @@ class App extends Component{
         fetch(FETCH_URL, myOptions)
             .then(response => response.json())
             .then(json => {
-                const artist = json.artists.items[0];
-                this.setState({ artist });
+                if (json.artists.items.length > 0){
+                    const artist = json.artists.items[0];
+                    this.setState({ artist });
+                }
             })
 
         /*

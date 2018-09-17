@@ -1,0 +1,3 @@
+export default {
+    SPOTIFY: 'BQDs7aYshcfygCqJ6TB5musFP8HoGx4K-MlcwXs8sSMdg8zezljMZ4vp3Z7zsWObIupuPE0v4_DZwPZeH-8k14MQ2YK503hL02Op4vGztgJ3lf4PW2eVA_A4_p8gLsc9yh4wiBytF6S09DSp_M5M1QUQX92WlTjXqg'
+}
