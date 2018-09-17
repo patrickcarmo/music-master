@@ -8,6 +8,12 @@ class Gallery extends Component {
         super(props);
     }
 
+    playAudio(previewUrl) {
+        console.log(previewUrl);
+        let audio = new Audio(previewUrl);
+        audio.play();
+    }
+
     render() {
         const { tracks } = this.props;
         return (
@@ -19,6 +25,7 @@ class Gallery extends Component {
                             <div
                                 key={k}
                                 className="track"
+                                onClick={() => this.playAudio(track.preview_url)}
                             >
                                 <img
                                     src={trackImg}
